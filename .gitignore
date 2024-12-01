@@ -185,3 +185,5 @@ transcripts/*.txt
 
 # Downloads directory
 downloads/
+# Ignore all .tgz files
+*.tgz
