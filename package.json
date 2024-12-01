@@ -24,12 +24,7 @@
     "openai": "^4.24.1"
   },
   "scripts": {
-    "dev": "bun run dev.ts",
-    "transcribe": "bun run index.ts",
-    "rename": "bun run renameFiles.ts",
-    "format": "bun run formatOutput.ts",
-    "clean": "bun run clean.ts",
-    "youtube": "bun run youtube.ts",
+    "dev": "bun index.ts",
     "build": "bun build ./index.ts --outdir ./dist --target node && chmod +x ./dist/index.js",
     "prepublishOnly": "bun run build"
   },
