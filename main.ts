@@ -4,9 +4,15 @@ import path from "path";
 import { Command } from "commander";
 import chalk from "chalk";
 
-import { openAIClient, SUPPORTED_LANGUAGES } from "@/api/openai";
+import { openAIClient } from "@/api/openai";
 import { getDirectoryFileNames } from "@/utils";
-import { DIRECTORIES } from "@/config";
+import {
+  DIRECTORIES,
+  SUPPORTED_AUDIO_FORMATS,
+  SUPPORTED_LANGUAGES,
+  OPENAI_CONFIG,
+  SupportedAudioFormat,
+} from "@/config";
 
 type TranscriptionResult = {
   fileName: string;
@@ -20,7 +26,11 @@ function setupCLI() {
   program
     .name("transcribe")
     .description("Audio transcription tool")
-    .option("-l, --lang <language>", "language to transcribe to", "en")
+    .option(
+      "-l, --lang <language>",
+      "language to transcribe to",
+      OPENAI_CONFIG.defaultLanguage
+    )
     .option("-i, --input-dir <directory>", "input directory", DIRECTORIES.audio)
     .option(
       "-o, --output-dir <directory>",
@@ -30,6 +40,33 @@ function setupCLI() {
     .parse();
 
   return program.opts();
+}
+
+function validateAudioFile(
+  filePath: string
+): { isValid: boolean; error?: string } {
+  const extension = path.extname(filePath).toLowerCase();
+  const fileSizeInMB = fs.statSync(filePath).size / (1024 * 1024);
+
+  if (!SUPPORTED_AUDIO_FORMATS.includes(extension as any)) {
+    return {
+      isValid: false,
+      error: `Unsupported file format. Supported formats: ${SUPPORTED_AUDIO_FORMATS.join(
+        ", "
+      )}`,
+    };
+  }
+
+  if (fileSizeInMB > OPENAI_CONFIG.maxFileSizeMB) {
+    return {
+      isValid: false,
+      error: `File size (${fileSizeInMB.toFixed(1)}MB) exceeds limit of ${
+        OPENAI_CONFIG.maxFileSizeMB
+      }MB`,
+    };
+  }
+
+  return { isValid: true };
 }
 
 async function processAudioFile(
@@ -47,9 +84,15 @@ async function processAudioFile(
 
   try {
     const filePath = path.resolve(`${options.inputDir}/${fileName}`);
+
+    const validation = validateAudioFile(filePath);
+    if (!validation.isValid) {
+      throw new Error(validation.error);
+    }
+
     const { text } = await openAIClient.audio.transcriptions.create({
       file: fs.createReadStream(filePath),
-      model: "whisper-1",
+      model: OPENAI_CONFIG.defaultModel,
       language: options.language,
     });
 
@@ -88,6 +131,16 @@ function printSummary(results: TranscriptionResult[], duration: number) {
 }
 
 async function main() {
+  // Add API key validation at the start
+  if (!process.env.OPENAI_API_KEY) {
+    console.error(
+      chalk.red.bold(
+        "❌ Error: OPENAI_API_KEY is not set in environment variables"
+      )
+    );
+    process.exit(1);
+  }
+
   console.log(chalk.blue.bold("🎙️ Starting audio transcription process..."));
   const startTime = Date.now();
 
@@ -102,10 +155,21 @@ async function main() {
     process.exit(1);
   }
 
-  const audioFileNames = getDirectoryFileNames(options.inputDir);
+  const audioFileNames = (
+    getDirectoryFileNames(options.inputDir) ?? []
+  ).filter((file) =>
+    SUPPORTED_AUDIO_FORMATS.includes(
+      path.extname(file).toLowerCase() as SupportedAudioFormat
+    )
+  );
 
   if (!audioFileNames?.length) {
-    console.log(chalk.yellow("⚠️ No audio files found in ./audio directory"));
+    console.log(
+      chalk.yellow("⚠️ No supported audio files found in input directory")
+    );
+    console.log(
+      chalk.dim(`Supported formats: ${SUPPORTED_AUDIO_FORMATS.join(", ")}`)
+    );
     return;
   }
 
