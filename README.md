@@ -2,67 +2,50 @@
 
 A command-line tool that transcribes audio files using OpenAI's Whisper model.
 
-## Features
-
-- Batch process multiple audio files
-- Support for multiple languages
-- Customizable input and output directories
-- Progress tracking and detailed logging
-- Summary report after completion
-
-## Prerequisites
-
-- [Bun](https://bun.sh/) runtime
-- OpenAI API key
-
 ## Installation
 
-1. Clone the repository
-2. Install dependencies:
+### Option 1: NPM Installation (Recommended for Users)
 
-   ```bash
-   bun install
-   ```
+```bash
+npm install -g @lunarity/a2s-cli
+```
 
-3. Set up your OpenAI API key:
-   - Copy `.env.example` to create a new `.env` file
-   - Add your OpenAI API key to the `.env` file:
-   ```
-   OPENAI_API_KEY=your-api-key-here
-   ```
+After installation, you can use the CLI globally with the `a2s` command:
+
+```bash
+a2s --help
+```
+
+### Environment Setup
+
+Set up your OpenAI API key:
+
+1. Create a `.env` file in your working directory
+2. Add your OpenAI API key:
+
+```
+OPENAI_API_KEY=your-api-key-here
+```
 
 ## Usage
 
-Basic usage with default options:
+### Available Commands
 
 ```bash
-bun transcribe
+# Transcribe audio files (with default options)
+a2s transcribe
+
+# Rename audio files to remove spaces and special characters
+a2s rename
+
+# Format existing transcript files
+a2s format
+
+# Clean audio and transcripts directories
+a2s clean
 ```
 
-This command will:
-
-- Rename audio files to remove spaces and special characters
-- Transcribe all audio files to text
-- Format the output with proper line breaks
-
-### Additional Commands
-
-- `bun rename` - Clean up audio file names
-- `bun format` - Format existing transcript files
-- `bun clean` - Remove all files from audio and transcripts directories
-- `bun youtube` - Download audio from YouTube to the ./audio directory
-
-## Output
-
-Transcribed files will be saved in the `transcripts` directory with the same base name as the input audio file.
-
-## Notes
-
-- Supports MP3 and WAV audio files
-- Optimized for Polish language transcription
-- Automatically formats output with proper sentence breaks
-
-### Options
+### Command Options
 
 - `-l, --lang <language>` - Specify the language to transcribe to (default: "en")
 - `-i, --input-dir <directory>` - Set input directory (default: "./audio")
@@ -71,29 +54,88 @@ Transcribed files will be saved in the `transcripts` directory with the same bas
 Example with options:
 
 ```bash
-bun transcribe --lang pl --input-dir ./my-audio --output-dir ./my-transcripts
+a2s transcribe --lang pl --input-dir ./my-audio --output-dir ./my-transcripts
 ```
+
+## Features
+
+- Batch process multiple audio files
+- Support for multiple languages
+- Customizable input and output directories
+- Progress tracking and detailed logging
+- Summary report after completion
+- Supports MP3 and WAV audio files
+- Optimized for Polish language transcription
+- Automatically formats output with proper sentence breaks
 
 ## Directory Structure
 
 ```
 .
 ├── audio/          # Default input directory for audio files
-├── transcripts/    # Default output directory for transcriptions
+└── transcripts/    # Default output directory for transcriptions
+```
+
+## Error Handling
+
+- Detailed error messages for failed transcriptions
+- Summary report shows successful and failed transcriptions
+- Failed transcriptions don't stop the batch process
+
+---
+
+## Development Guide
+
+### Prerequisites
+
+- [Bun](https://bun.sh/) runtime
+- OpenAI API key
+
+### Local Setup
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/LUNARITYai/a2s-cli.git
+```
+
+2. Install dependencies:
+
+```bash
+bun install
+```
+
+3. Set up your OpenAI API key:
+   - Copy `.env.example` to create a new `.env` file
+   - Add your OpenAI API key
+
+### Development Commands
+
+```bash
+# Run in development mode
+bun dev
+
+# Build the project
+bun run build
+
+# Run specific commands during development
+bun transcribe
+bun rename
+bun format
+bun clean
+bun youtube
+```
+
+### Project Structure
+
+```
+.
+├── audio/          # Default input directory
+├── transcripts/    # Default output directory
 ├── api/            # API related files
 ├── index.ts        # Main application file
 └── utils.ts        # Utility functions
 ```
-
-## Output Format
-
-Transcriptions are saved as text files in the output directory. The filename will match the input audio file's name (without the audio extension).
-
-## Error Handling
-
-- The tool provides detailed error messages for failed transcriptions
-- A summary report shows successful and failed transcriptions
-- Failed transcriptions don't stop the batch process
 
 ## Contributing
 
