@@ -1,6 +1,7 @@
-import { cleanDirectory } from "@/utils";
-import { DIRECTORIES } from "@/config";
 import chalk from "chalk";
+
+import { DIRECTORIES } from "@/config";
+import { cleanDirectory } from "@/utils";
 
 async function main() {
   try {

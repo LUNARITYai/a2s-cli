@@ -4,8 +4,6 @@ import path from "path";
 import { Command } from "commander";
 import chalk from "chalk";
 
-import { openAIClient } from "@/api/openai";
-import { getDirectoryFileNames, renameFilesInDirectory } from "@/utils";
 import {
   DIRECTORIES,
   SUPPORTED_AUDIO_FORMATS,
@@ -13,6 +11,8 @@ import {
   OPENAI_CONFIG,
   SupportedAudioFormat,
 } from "@/config";
+import { openAIClient } from "@/api/openai";
+import { getDirectoryFileNames, renameFilesInDirectory } from "@/utils";
 
 type TranscriptionResult = {
   fileName: string;
