@@ -1,6 +1,6 @@
 {
   "name": "@lunarity/a2s-cli",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "A CLI tool for transcribing audio files to subtitles",
   "module": "index.ts",
   "type": "module",
