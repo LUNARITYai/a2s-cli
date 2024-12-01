@@ -3,7 +3,7 @@ import chalk from "chalk";
 import { DIRECTORIES } from "@/config";
 import { cleanDirectory } from "@/utils";
 
-async function main() {
+export const clean = async () => {
   try {
     await Promise.all(
       Object.values(DIRECTORIES).map((dir) => cleanDirectory(dir))
@@ -16,6 +16,4 @@ async function main() {
     );
     process.exit(1);
   }
-}
-
-main();
+};
