@@ -18,7 +18,19 @@ a2s --help
 
 ### Environment Setup
 
-Set up your OpenAI API key:
+#### Obtain OpenAI API Key
+
+You can get your OpenAI API key from: https://platform.openai.com/api-keys
+
+#### Option 1: Export Command
+
+You can set the API key directly in your terminal:
+
+```bash
+export OPENAI_API_KEY=your-api-key-here
+```
+
+#### Option 2: Environment File
 
 1. Create a `.env` file in your working directory
 2. Add your OpenAI API key:
