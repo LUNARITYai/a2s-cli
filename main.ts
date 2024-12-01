@@ -5,7 +5,7 @@ import { Command } from "commander";
 import chalk from "chalk";
 
 import { openAIClient } from "@/api/openai";
-import { getDirectoryFileNames } from "@/utils";
+import { getDirectoryFileNames, renameFilesInDirectory } from "@/utils";
 import {
   DIRECTORIES,
   SUPPORTED_AUDIO_FORMATS,
@@ -152,6 +152,9 @@ async function main() {
     console.error(chalk.red("Error creating directories:"), error);
     process.exit(1);
   }
+
+  // Rename files
+  await renameFilesInDirectory(options.inputDir);
 
   const audioFileNames = (
     getDirectoryFileNames(options.inputDir) ?? []

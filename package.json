@@ -24,8 +24,8 @@
     "openai": "^4.24.1"
   },
   "scripts": {
-    "dev": "bun rename && bun run dev.ts",
-    "transcribe": "bun rename && bun run index.ts",
+    "dev": "bun run dev.ts",
+    "transcribe": "bun run index.ts",
     "rename": "bun run renameFiles.ts",
     "format": "bun run formatOutput.ts",
     "clean": "bun run clean.ts",
@@ -36,8 +36,11 @@
   "keywords": [
     "cli",
     "audio",
-    "video",
-    "transcription"
+    "subtitles",
+    "transcription",
+    "speech-to-text",
+    "ai",
+    "llm"
   ],
   "author": "Krzysztof Oszczapiński",
   "license": "MIT",
