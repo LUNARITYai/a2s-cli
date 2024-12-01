@@ -1,18 +1,18 @@
 import fs from "fs";
 import path from "path";
-import { getDirectoryFileNames } from "./utils";
+import { getDirectoryFileNames } from "@/utils";
+import { DIRECTORIES, FORMATTED_FILE_PREFIX } from "@/config";
 
-const fileNames = getDirectoryFileNames("./transcripts");
+const fileNames = getDirectoryFileNames(DIRECTORIES.transcripts);
 
 if (!fileNames) {
   throw new Error("No file names");
 }
 
 for (const fileName of fileNames) {
-  const inputFile = `./transcripts/${fileName}`;
-  const outputPrefix = "m_"; // Add your desired prefix here
+  const inputFile = path.join(DIRECTORIES.transcripts, fileName);
   const outputFileName = path.basename(inputFile);
-  const outputFile = path.join(outputPrefix + outputFileName);
+  const outputFile = path.join(FORMATTED_FILE_PREFIX + outputFileName);
 
   // Read the file content
   fs.readFile(inputFile, "utf8", (err, data) => {
@@ -26,7 +26,7 @@ for (const fileName of fileNames) {
 
     // Write the modified content to a new file with the specified prefix
     fs.writeFile(
-      `./transcripts/${outputFile}`,
+      path.join(DIRECTORIES.transcripts, outputFile),
       modifiedContent,
       "utf8",
       (err) => {
