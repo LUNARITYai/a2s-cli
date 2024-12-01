@@ -1,16 +1,12 @@
-import { cleanDirectory } from "./utils";
-import path from "path";
+import { cleanDirectory } from "@/utils";
+import { DIRECTORIES } from "@/config";
 import chalk from "chalk";
-
-const audioDir = path.join(process.cwd(), "audio");
-const transcriptDir = path.join(process.cwd(), "transcripts");
 
 async function main() {
   try {
-    await Promise.all([
-      cleanDirectory(audioDir),
-      cleanDirectory(transcriptDir),
-    ]);
+    await Promise.all(
+      Object.values(DIRECTORIES).map((dir) => cleanDirectory(dir))
+    );
     console.log(chalk.green.bold("✅ All directories cleaned successfully"));
   } catch (error) {
     console.error(
