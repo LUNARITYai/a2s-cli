@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import { version } from "./package.json";
+import { version } from "@/package.json";
 
-import { transcribe } from "./commands/transcribe";
-import { rename } from "./commands/rename";
-import { format } from "./commands/format";
-import { clean } from "./commands/clean";
+import { transcribe } from "@/commands/transcribe";
+import { rename } from "@/commands/rename";
+import { format } from "@/commands/format";
+import { clean } from "@/commands/clean";
 import { DIRECTORIES, OPENAI_CONFIG } from "@/config";
 
 const program = new Command();
