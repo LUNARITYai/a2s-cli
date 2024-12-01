@@ -6,6 +6,7 @@ import chalk from "chalk";
 
 import { openAIClient, SUPPORTED_LANGUAGES } from "@/api/openai";
 import { getDirectoryFileNames } from "@/utils";
+import { DIRECTORIES } from "@/config";
 
 type TranscriptionResult = {
   fileName: string;
@@ -20,8 +21,12 @@ function setupCLI() {
     .name("transcribe")
     .description("Audio transcription tool")
     .option("-l, --lang <language>", "language to transcribe to", "en")
-    .option("-i, --input-dir <directory>", "input directory", "./audio")
-    .option("-o, --output-dir <directory>", "output directory", "./transcripts")
+    .option("-i, --input-dir <directory>", "input directory", DIRECTORIES.audio)
+    .option(
+      "-o, --output-dir <directory>",
+      "output directory",
+      DIRECTORIES.transcripts
+    )
     .parse();
 
   return program.opts();
@@ -87,6 +92,16 @@ async function main() {
   const startTime = Date.now();
 
   const options = setupCLI();
+
+  // Create directories if they don't exist
+  try {
+    await fs.promises.mkdir(options.inputDir, { recursive: true });
+    await fs.promises.mkdir(options.outputDir, { recursive: true });
+  } catch (error) {
+    console.error(chalk.red("Error creating directories:"), error);
+    process.exit(1);
+  }
+
   const audioFileNames = getDirectoryFileNames(options.inputDir);
 
   if (!audioFileNames?.length) {
