@@ -23,16 +23,16 @@ program
 //   .option("-f, --format <format>", "Output format (srt, vtt)", "srt")
 //   .action(transcribe);
 
-// Rename command
-program.command("rename").description("Rename subtitle files").action(rename);
+// Rename audio files command
+program.command("rename").description("Rename audio files").action(rename);
 
-// Format command
+// Subtitle Format command
 program.command("format").description("Format subtitle files").action(format);
 
 // Clean command
 program
   .command("clean")
-  .description("Clean audio and transcripts directories")
+  .description("Clean ./audio and ./transcripts directories")
   .action(clean);
 
 program.parse();
