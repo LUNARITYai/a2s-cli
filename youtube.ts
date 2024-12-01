@@ -1,7 +1,10 @@
-import { YtdlCore, toPipeableStream } from "@ybd-project/ytdl-core";
 import fs from "fs";
 import path from "path";
+
 import chalk from "chalk";
+import { YtdlCore, toPipeableStream } from "@ybd-project/ytdl-core";
+
+import { DIRECTORIES } from "@/config";
 
 async function downloadYoutubeAudio(url: string): Promise<void> {
   try {
@@ -20,15 +23,10 @@ async function downloadYoutubeAudio(url: string): Promise<void> {
     });
 
     const stream = await ytdl.download(url, {
-      // TODO: add flag for audio only in future
       filter: "audioonly",
     });
 
-    const outputFilePath = path.join(
-      process.cwd(),
-      "audio",
-      `${videoTitle}.mp3`
-    );
+    const outputFilePath = path.join(DIRECTORIES.audio, `${videoTitle}.mp3`);
 
     toPipeableStream(stream).pipe(fs.createWriteStream(outputFilePath));
 
