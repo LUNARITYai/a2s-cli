@@ -1,4 +1,4 @@
-# AtoS (Audio to Subtitles)
+# A2S - CLI (Audio to Subtitles - Command Line Interface)
 
 A command-line tool that transcribes audio files using OpenAI's Whisper model.
 

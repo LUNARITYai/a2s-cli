@@ -1,7 +1,16 @@
 {
-  "name": "atos",
+  "name": "@lunarity/a2s-cli",
+  "version": "1.0.0",
+  "description": "A CLI tool for transcribing audio files to subtitles",
   "module": "index.ts",
   "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "a2s": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "bun-types": "latest"
   },
@@ -19,6 +28,20 @@
     "rename": "bun run renameFiles.ts",
     "format": "bun run formatOutput.ts",
     "clean": "bun run clean.ts",
-    "youtube": "bun run youtube.ts"
+    "youtube": "bun run youtube.ts",
+    "build": "bun build ./index.ts --outdir ./dist --target node && chmod +x ./dist/index.js",
+    "prepublishOnly": "bun run build"
+  },
+  "keywords": [
+    "cli",
+    "audio",
+    "video",
+    "transcription"
+  ],
+  "author": "Krzysztof Oszczapiński",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LUNARITYai/a2s-cli.git"
   }
 }
