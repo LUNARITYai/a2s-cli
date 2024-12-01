@@ -131,12 +131,10 @@ function printSummary(results: TranscriptionResult[], duration: number) {
 }
 
 async function main() {
-  // Add API key validation at the start
   if (!process.env.OPENAI_API_KEY) {
     console.error(
-      chalk.red.bold(
-        "❌ Error: OPENAI_API_KEY is not set in environment variables"
-      )
+      chalk.red.bold("❌ Configuration Error: ") +
+        chalk.red("Please set the OPENAI_API_KEY environment variable")
     );
     process.exit(1);
   }

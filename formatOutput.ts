@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { getDirectoryFileNames } from "@/utils";
-import { DIRECTORIES } from "@/config";
+import { DIRECTORIES, FORMATTED_FILE_PREFIX } from "@/config";
 
 const fileNames = getDirectoryFileNames(DIRECTORIES.transcripts);
 
@@ -11,9 +11,8 @@ if (!fileNames) {
 
 for (const fileName of fileNames) {
   const inputFile = path.join(DIRECTORIES.transcripts, fileName);
-  const outputPrefix = "m_"; // Add your desired prefix here
   const outputFileName = path.basename(inputFile);
-  const outputFile = path.join(outputPrefix + outputFileName);
+  const outputFile = path.join(FORMATTED_FILE_PREFIX + outputFileName);
 
   // Read the file content
   fs.readFile(inputFile, "utf8", (err, data) => {

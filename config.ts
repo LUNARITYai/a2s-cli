@@ -1,5 +1,7 @@
 import path from "path";
 
+export const FORMATTED_FILE_PREFIX = "FORMATTED_" as const;
+
 export const DIRECTORIES = {
   audio: path.join(process.cwd(), "audio"),
   transcripts: path.join(process.cwd(), "transcripts"),
