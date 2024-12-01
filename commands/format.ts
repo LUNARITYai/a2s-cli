@@ -37,6 +37,7 @@ export const format = async () => {
             console.error(err);
             return;
           }
+          console.log(`✅ Successfully formatted and saved: ${outputFile}`);
         }
       );
     });

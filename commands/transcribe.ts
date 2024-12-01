@@ -74,7 +74,12 @@ async function processAudioFile(
       language: options.language,
     });
 
-    await Bun.write(`${options.outputDir}/${fileName.split(".")[0]}.txt`, text);
+    await fs.promises.writeFile(
+      `${options.outputDir}/${fileName.split(".")[0]}.txt`,
+      text,
+      "utf-8"
+    );
+
     console.log(
       chalk.green.bold("✅ Successfully transcribed: ") + chalk.green(fileName)
     );
