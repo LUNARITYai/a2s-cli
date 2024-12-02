@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to A2S-CLI!
 
-## 👩‍💻 Development Setup
+## 💻 Development Setup
 
 ### Prerequisites
 
@@ -36,23 +36,22 @@ bun dev
 # Build the project
 bun run build
 
-# Development commands
-bun transcribe
-bun rename
-bun format
-bun clean
-bun youtube
+# Build before publishing
+bun run prepublishOnly
 ```
 
 ## 📁 Project Structure
 
 ```
 .
-├── audio/          # Default input directory
-├── transcripts/    # Default output directory
-├── api/            # API related files
-├── index.ts        # Main application file
-└── utils.ts        # Utility functions
+├── api/            # OpenAI API client configuration
+├── audio/          # Default input directory for audio files
+├── commands/       # CLI command implementations
+├── transcripts/    # Default output directory for transcriptions
+├── config.ts       # Configuration constants and types
+├── index.ts        # Main CLI application entry point
+├── utils.ts        # Utility functions
+└── youtube.ts      # YouTube download functionality
 ```
 
 ## Pull Request Process
@@ -65,8 +64,8 @@ bun youtube
 
 ## Code Style
 
-[Add your code style guidelines here]
+[TBD]
 
 ## Testing
 
-[Add testing guidelines here]
+[TBD]

@@ -76,9 +76,7 @@ a2s transcribe --lang pl --input-dir ./my-audio --output-dir ./my-transcripts
 - Customizable input and output directories
 - Progress tracking and detailed logging
 - Summary report after completion
-- Supports MP3 and WAV audio files
-- Optimized for Polish language transcription
-- Automatically formats output with proper sentence breaks
+- Supports M4A, MP3, MP4, MPEG, MPGA, WAV, and WEBM audio files
 
 ## 📁 Directory Structure
 
