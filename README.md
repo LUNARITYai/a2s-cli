@@ -1,8 +1,8 @@
-# A2S - CLI (Audio to Subtitles - Command Line Interface)
+# 🌙 A2S - CLI (Audio to Subtitles - Command Line Interface)
 
 A command-line tool that transcribes audio files using OpenAI's Whisper model.
 
-## Installation
+## ⚡ Installation
 
 ### Option 1: NPM Installation (Recommended for Users)
 
@@ -16,7 +16,7 @@ After installation, you can use the CLI globally with the `a2s` command:
 a2s --help
 ```
 
-### Environment Setup
+### 🔑 Environment Setup
 
 #### Obtain OpenAI API Key
 
@@ -39,21 +39,21 @@ export OPENAI_API_KEY=your-api-key-here
 OPENAI_API_KEY=your-api-key-here
 ```
 
-## Usage
+## 🚀 Usage
 
 ### Available Commands
 
 ```bash
-# Transcribe audio files (with default options)
+# 🎵 Transcribe audio files (with default options)
 a2s transcribe
 
-# Rename audio files to remove spaces and special characters
+# ✨ Rename audio files to remove spaces and special characters
 a2s rename
 
-# Format existing transcript files
+# 📝 Format existing transcript files
 a2s format
 
-# Clean audio and transcripts directories
+# 🗑️ Clean audio and transcripts directories
 a2s clean
 ```
 
@@ -69,18 +69,16 @@ Example with options:
 a2s transcribe --lang pl --input-dir ./my-audio --output-dir ./my-transcripts
 ```
 
-## Features
+## ✨ Features
 
 - Batch process multiple audio files
 - Support for multiple languages
 - Customizable input and output directories
 - Progress tracking and detailed logging
 - Summary report after completion
-- Supports MP3 and WAV audio files
-- Optimized for Polish language transcription
-- Automatically formats output with proper sentence breaks
+- Supports M4A, MP3, MP4, MPEG, MPGA, WAV, and WEBM audio files
 
-## Directory Structure
+## 📁 Directory Structure
 
 ```
 .
@@ -88,71 +86,16 @@ a2s transcribe --lang pl --input-dir ./my-audio --output-dir ./my-transcripts
 └── transcripts/    # Default output directory for transcriptions
 ```
 
-## Error Handling
+## ⚠️ Error Handling
 
 - Detailed error messages for failed transcriptions
 - Summary report shows successful and failed transcriptions
 - Failed transcriptions don't stop the batch process
 
----
+## 🌟 Contributing
 
-## Development Guide
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
-### Prerequisites
-
-- [Bun](https://bun.sh/) runtime
-- OpenAI API key
-
-### Local Setup
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/LUNARITYai/a2s-cli.git
-```
-
-2. Install dependencies:
-
-```bash
-bun install
-```
-
-3. Set up your OpenAI API key:
-   - Copy `.env.example` to create a new `.env` file
-   - Add your OpenAI API key
-
-### Development Commands
-
-```bash
-# Run in development mode
-bun dev
-
-# Build the project
-bun run build
-
-# Run specific commands during development
-bun transcribe
-bun rename
-bun format
-bun clean
-bun youtube
-```
-
-### Project Structure
-
-```
-.
-├── audio/          # Default input directory
-├── transcripts/    # Default output directory
-├── api/            # API related files
-├── index.ts        # Main application file
-└── utils.ts        # Utility functions
-```
-
-## Contributing
-
-Feel free to submit issues and pull requests.
-
-## License
+## 📄 License
 
 MIT
