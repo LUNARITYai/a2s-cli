@@ -9,6 +9,10 @@ Thank you for your interest in contributing to A2S-CLI!
 - [Bun](https://bun.sh/) runtime
 - OpenAI API key
 
+#### Obtain OpenAI API Key
+
+You can get your OpenAI API key from: https://platform.openai.com/api-keys
+
 ### Local Setup
 
 1. Clone the repository:
