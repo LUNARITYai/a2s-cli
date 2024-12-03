@@ -1,6 +1,6 @@
-# 🌙 A2S - CLI (Audio to Subtitles - Command Line Interface)
+# A2S - CLI (Audio to Subtitles - Command Line Interface)
 
-A command-line tool that transcribes audio files using OpenAI's Whisper model.
+A command-line tool that transcribes audio files using OpenAI's Whisper model to generate subtitles in SRT format.
 
 ## ⚡ Installation
 
@@ -50,9 +50,6 @@ a2s transcribe
 # ✨ Rename audio files to remove spaces and special characters
 a2s rename
 
-# 📝 Format existing transcript files
-a2s format
-
 # 🗑️ Clean audio and transcripts directories
 a2s clean
 ```
@@ -71,12 +68,13 @@ a2s transcribe --lang pl --input-dir ./my-audio --output-dir ./my-transcripts
 
 ## ✨ Features
 
+- Default output format for transcriptions is SRT (SubRip Subtitle)
+- Supports M4A, MP3, MP4, MPEG, MPGA, WAV, and WEBM audio files
 - Batch process multiple audio files
-- Support for multiple languages
 - Customizable input and output directories
+- Support for multiple languages
 - Progress tracking and detailed logging
 - Summary report after completion
-- Supports M4A, MP3, MP4, MPEG, MPGA, WAV, and WEBM audio files
 
 ## 📁 Directory Structure
 
