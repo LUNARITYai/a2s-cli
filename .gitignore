@@ -177,11 +177,14 @@ dist
 # mp3 files
 *.mp3
 
+# txt files
+*.txt
+
+# srt files
+*.srt
+
 # wav files
 *.wav
-
-# transcipts directory
-transcripts/*.txt
 
 # Downloads directory
 downloads/

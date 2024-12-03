@@ -20,13 +20,14 @@ type TranscriptionResult = {
   error?: string;
 };
 
-function validateAudioFile(
-  filePath: string
-): { isValid: boolean; error?: string } {
+function validateAudioFile(filePath: string): {
+  isValid: boolean;
+  error?: string;
+} {
   const extension = path.extname(filePath).toLowerCase();
   const fileSizeInMB = fs.statSync(filePath).size / (1024 * 1024);
 
-  if (!SUPPORTED_AUDIO_FORMATS.includes(extension as any)) {
+  if (!SUPPORTED_AUDIO_FORMATS.includes(extension as SupportedAudioFormat)) {
     return {
       isValid: false,
       error: `Unsupported file format. Supported formats: ${SUPPORTED_AUDIO_FORMATS.join(
@@ -68,25 +69,25 @@ async function processAudioFile(
       throw new Error(validation.error);
     }
 
-    const { text } = await openAIClient.audio.transcriptions.create({
+    const transcription = await openAIClient.audio.transcriptions.create({
       file: fs.createReadStream(filePath),
       model: OPENAI_CONFIG.defaultModel,
       language: options.language,
+      response_format: "srt",
     });
 
     await fs.promises.writeFile(
-      `${options.outputDir}/${fileName.split(".")[0]}.txt`,
-      text,
-      "utf-8"
+      `${options.outputDir}/${fileName.split(".")[0]}.srt`,
+      transcription
     );
 
     console.log(
       chalk.green.bold("✅ Successfully transcribed: ") + chalk.green(fileName)
     );
     console.log(
-      chalk.gray(`📝 Content preview: "${text.substring(0, 100)}..."`)
+      chalk.gray(`📝 Content preview: "${transcription.substring(0, 100)}..."`)
     );
-    return { fileName, success: true, text };
+    return { fileName, success: true, text: transcription };
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";
@@ -141,12 +142,11 @@ export const transcribe = async (options: {
   // Rename files
   await renameFilesInDirectory(options.inputDir);
 
-  const audioFileNames = (
-    getDirectoryFileNames(options.inputDir) ?? []
-  ).filter((file) =>
-    SUPPORTED_AUDIO_FORMATS.includes(
-      path.extname(file).toLowerCase() as SupportedAudioFormat
-    )
+  const audioFileNames = (getDirectoryFileNames(options.inputDir) ?? []).filter(
+    (file) =>
+      SUPPORTED_AUDIO_FORMATS.includes(
+        path.extname(file).toLowerCase() as SupportedAudioFormat
+      )
   );
 
   if (!audioFileNames?.length) {
