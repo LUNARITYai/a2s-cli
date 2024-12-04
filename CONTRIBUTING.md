@@ -55,7 +55,6 @@ bun run prepublishOnly
 ├── config.ts       # Configuration constants and types
 ├── index.ts        # Main CLI application entry point
 ├── utils.ts        # Utility functions
-└── youtube.ts      # YouTube download functionality
 ```
 
 ## Pull Request Process
