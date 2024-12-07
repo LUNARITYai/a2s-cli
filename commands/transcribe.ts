@@ -140,7 +140,7 @@ export const transcribe = async (options: {
   }
 
   // Rename files
-  await renameFilesInDirectory(options.inputDir);
+  await renameFilesInDirectory(options.inputDir, false);
 
   const audioFileNames = (getDirectoryFileNames(options.inputDir) ?? []).filter(
     (file) =>
