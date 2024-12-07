@@ -166,11 +166,12 @@ export const transcribe = async (options: {
     return;
   }
 
-  console.log(chalk.cyan("📂 Found audio files:"));
-  audioFileNames.forEach((file) => {
-    console.log(chalk.dim(`   • ${file}`));
-  });
-  console.log(chalk.cyan(`🌐 Language: ${options.lang}`));
+  console.log(
+    chalk.cyan(
+      `📂 Found ${audioFileNames.length} audio files in ${options.inputDir}`
+    )
+  );
+  console.log(chalk.cyan(`🌐 Language: ${options.lang.toUpperCase()}`));
 
   const transcriptionPromises = audioFileNames.map((fileName, index) =>
     processAudioFile(
