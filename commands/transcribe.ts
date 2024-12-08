@@ -84,9 +84,6 @@ async function processAudioFile(
     console.log(
       chalk.green.bold("✅ Successfully transcribed: ") + chalk.green(fileName)
     );
-    console.log(
-      chalk.gray(`📝 Content preview: "${transcription.substring(0, 100)}..."`)
-    );
     return { fileName, success: true, text: transcription };
   } catch (error) {
     const errorMessage =
@@ -105,7 +102,7 @@ function printSummary(results: TranscriptionResult[], duration: number) {
 
   console.log(chalk.dim("═".repeat(50)));
   console.log(chalk.bold("📊 Transcription Summary"));
-  console.log(chalk.dim("─".repeat(20)));
+  console.log(chalk.dim("─".repeat(24)));
   console.log(chalk.green.bold(`✅ Successful: ${chalk.white(successful)}`));
   console.log(chalk.red.bold(`❌ Failed: ${chalk.white(failed)}`));
   console.log(
@@ -168,7 +165,7 @@ export const transcribe = async (options: {
 
   console.log(
     chalk.cyan(
-      `📂 Found ${audioFileNames.length} audio files in ${options.inputDir}`
+      `📂 Found (${audioFileNames.length}) audio files in ${options.inputDir}`
     )
   );
   console.log(chalk.cyan(`🌐 Language: ${options.lang.toUpperCase()}`));
