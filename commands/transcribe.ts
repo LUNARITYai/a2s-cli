@@ -61,6 +61,7 @@ async function processAudioFile(
     )
   );
 
+  const startTime = Date.now();
   try {
     const filePath = path.resolve(`${options.inputDir}/${fileName}`);
 
@@ -81,8 +82,11 @@ async function processAudioFile(
       transcription
     );
 
+    const duration = (Date.now() - startTime) / 1000;
     console.log(
-      chalk.green.bold("✅ Successfully transcribed: ") + chalk.green(fileName)
+      chalk.green.bold("✅ Successfully transcribed: ") +
+        chalk.green(fileName) +
+        chalk.green.dim(` in ${duration.toFixed(2)}s`)
     );
     return { fileName, success: true, text: transcription };
   } catch (error) {
