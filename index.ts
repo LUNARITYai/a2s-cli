@@ -12,7 +12,9 @@ const program = new Command();
 
 program
   .name("a2s")
-  .description("CLI Tool for transcribing Audio to Subtitles")
+  .description(
+    "CLI Tool for transcribing Audio to Subtitles using OpenAI's Whisper model"
+  )
   .version(version);
 
 // Transcribe command
