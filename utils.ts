@@ -1,7 +1,12 @@
 import fs from "fs";
 import path from "path";
 
-export const renameFilesInDirectory = async (directory: string): Promise<void> => {
+import chalk from "chalk";
+
+export const renameFilesInDirectory = async (
+  directory: string,
+  verbose: boolean = true
+): Promise<void> => {
   try {
     const files = await fs.promises.readdir(directory);
 
@@ -26,14 +31,25 @@ export const renameFilesInDirectory = async (directory: string): Promise<void> =
 
       if (file !== newFileName) {
         await fs.promises.rename(filePath, newFilePath);
-        console.log(`Renamed: ${file} → ${newFileName}`);
+        if (verbose) {
+          console.log(chalk.dim(`Renamed: ${file} → ${newFileName}`));
+        }
       }
     });
 
     await Promise.all(renamePromises);
-    console.log("All files have been renamed successfully");
+    if (verbose) {
+      console.log(
+        chalk.green.bold("✅ All files have been renamed successfully")
+      );
+    }
   } catch (error) {
-    console.error(`Error processing directory ${directory}:`, error);
+    console.error(
+      chalk.red.bold("❌ Error processing directory ") +
+        chalk.red(directory) +
+        "   " +
+        chalk.red.dim(error)
+    );
     throw error;
   }
 };
@@ -54,7 +70,12 @@ export const getDirectoryFileNames = (
     }
     return filteredFileNames;
   } catch (err) {
-    console.error(`Failed to read directory ${dir}:`, err);
+    console.error(
+      chalk.red.bold("❌ Failed to read directory ") +
+        chalk.red(dir) +
+        "   " +
+        chalk.red.dim(err)
+    );
     return null;
   }
 };
@@ -63,13 +84,20 @@ export const cleanDirectory = async (directory: string): Promise<void> => {
   try {
     const files = await fs.promises.readdir(directory);
     const unlinkPromises = files
-      .filter(file => file !== ".gitkeep")
-      .map(file => fs.promises.unlink(path.join(directory, file)));
+      .filter((file) => file !== ".gitkeep")
+      .map((file) => fs.promises.unlink(path.join(directory, file)));
 
     await Promise.all(unlinkPromises);
-    console.log(`Cleaned directory: ${directory}`);
+    console.log(
+      chalk.green.bold("✅ Cleaned directory: ") + chalk.green(directory)
+    );
   } catch (error) {
-    console.error(`Error cleaning directory ${directory}:`, error);
+    console.error(
+      chalk.red.bold("❌ Error cleaning directory ") +
+        chalk.red(directory) +
+        "   " +
+        chalk.red.dim(error)
+    );
     throw error;
   }
 };

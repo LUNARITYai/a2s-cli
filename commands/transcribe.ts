@@ -61,6 +61,7 @@ async function processAudioFile(
     )
   );
 
+  const startTime = Date.now();
   try {
     const filePath = path.resolve(`${options.inputDir}/${fileName}`);
 
@@ -81,11 +82,11 @@ async function processAudioFile(
       transcription
     );
 
+    const duration = (Date.now() - startTime) / 1000;
     console.log(
-      chalk.green.bold("✅ Successfully transcribed: ") + chalk.green(fileName)
-    );
-    console.log(
-      chalk.gray(`📝 Content preview: "${transcription.substring(0, 100)}..."`)
+      chalk.green.bold("✅ Successfully transcribed: ") +
+        chalk.green(fileName) +
+        chalk.green.dim(` in ${duration.toFixed(2)}s`)
     );
     return { fileName, success: true, text: transcription };
   } catch (error) {
@@ -105,7 +106,7 @@ function printSummary(results: TranscriptionResult[], duration: number) {
 
   console.log(chalk.dim("═".repeat(50)));
   console.log(chalk.bold("📊 Transcription Summary"));
-  console.log(chalk.dim("─".repeat(20)));
+  console.log(chalk.dim("─".repeat(24)));
   console.log(chalk.green.bold(`✅ Successful: ${chalk.white(successful)}`));
   console.log(chalk.red.bold(`❌ Failed: ${chalk.white(failed)}`));
   console.log(
@@ -140,7 +141,7 @@ export const transcribe = async (options: {
   }
 
   // Rename files
-  await renameFilesInDirectory(options.inputDir);
+  await renameFilesInDirectory(options.inputDir, false);
 
   const audioFileNames = (getDirectoryFileNames(options.inputDir) ?? []).filter(
     (file) =>
@@ -166,11 +167,12 @@ export const transcribe = async (options: {
     return;
   }
 
-  console.log(chalk.cyan("📂 Found audio files:"));
-  audioFileNames.forEach((file) => {
-    console.log(chalk.dim(`   • ${file}`));
-  });
-  console.log(chalk.cyan(`🌐 Language: ${options.lang}`));
+  console.log(
+    chalk.cyan(
+      `📂 Found (${audioFileNames.length}) audio files in ${options.inputDir}`
+    )
+  );
+  console.log(chalk.cyan(`🌐 Language: ${options.lang.toUpperCase()}`));
 
   const transcriptionPromises = audioFileNames.map((fileName, index) =>
     processAudioFile(
