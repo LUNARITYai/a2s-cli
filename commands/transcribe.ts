@@ -55,7 +55,7 @@ async function processAudioFile(
 ): Promise<TranscriptionResult> {
   console.log(
     chalk.cyan(
-      `${progress} ${chalk.cyan.bold("🔄 Processing:")} ${chalk.white(
+      `🔄 ${progress} ${chalk.cyan.bold("Processing:")} ${chalk.white(
         fileName
       )}`
     )
@@ -105,12 +105,12 @@ function printSummary(results: TranscriptionResult[], duration: number) {
   const failed = results.filter((r) => !r.success).length;
 
   console.log(chalk.dim("═".repeat(50)));
-  console.log(chalk.bold("📊 Transcription Summary"));
+  console.log(chalk.bold("📈 Transcription Summary"));
   console.log(chalk.dim("─".repeat(24)));
   console.log(chalk.green.bold(`✅ Successful: ${chalk.white(successful)}`));
   console.log(chalk.red.bold(`❌ Failed: ${chalk.white(failed)}`));
   console.log(
-    chalk.blue.bold(`⏱️ Duration: ${chalk.white(duration.toFixed(2))}s`)
+    chalk.blue.bold(`⏱️  Duration: ${chalk.white(duration.toFixed(2))}s`)
   );
   console.log();
 }
@@ -128,7 +128,7 @@ export const transcribe = async (options: {
     process.exit(1);
   }
 
-  console.log(chalk.blue.bold("🎙️ Starting audio transcription process..."));
+  console.log(chalk.blue.bold("🚀 Starting audio transcription process..."));
   const startTime = Date.now();
 
   // Create directories if they don't exist
