@@ -55,7 +55,7 @@ async function processAudioFile(
 ): Promise<TranscriptionResult> {
   console.log(
     chalk.cyan(
-      `${progress} ${chalk.cyan.bold("🔄 Processing:")} ${chalk.white(
+      `🔄 ${progress} ${chalk.cyan.bold("Processing:")} ${chalk.white(
         fileName
       )}`
     )
