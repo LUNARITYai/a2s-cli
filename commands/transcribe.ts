@@ -128,7 +128,7 @@ export const transcribe = async (options: {
     process.exit(1);
   }
 
-  console.log(chalk.blue.bold("🎙️ Starting audio transcription process..."));
+  console.log(chalk.blue.bold("🚀 Starting audio transcription process..."));
   const startTime = Date.now();
 
   // Create directories if they don't exist
