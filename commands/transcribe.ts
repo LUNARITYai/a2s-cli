@@ -105,12 +105,12 @@ function printSummary(results: TranscriptionResult[], duration: number) {
   const failed = results.filter((r) => !r.success).length;
 
   console.log(chalk.dim("═".repeat(50)));
-  console.log(chalk.bold("📊 Transcription Summary"));
+  console.log(chalk.bold("📈 Transcription Summary"));
   console.log(chalk.dim("─".repeat(24)));
   console.log(chalk.green.bold(`✅ Successful: ${chalk.white(successful)}`));
   console.log(chalk.red.bold(`❌ Failed: ${chalk.white(failed)}`));
   console.log(
-    chalk.blue.bold(`⏱️ Duration: ${chalk.white(duration.toFixed(2))}s`)
+    chalk.blue.bold(`⏱️  Duration: ${chalk.white(duration.toFixed(2))}s`)
   );
   console.log();
 }
